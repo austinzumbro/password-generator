@@ -36,6 +36,8 @@ for (let i = 0; i < specialCharacterString.length; i++) {
 
 // Write password to the #password input
 function writePassword() {
+  let 
+
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
