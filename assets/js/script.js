@@ -50,56 +50,63 @@ var criteria = {
 	collectUserInput: function () {
 		// reset the character library
 		this.characters = [];
+		console.log(this.characters);
+
 		// collect the number of characters specification from the user
-		this.length = prompt(
-			'How many characters? 8 character minimum, 128 character maximum.',
-			this.length
+		this.length = parseInt(
+			prompt(
+				'What length, in characters, would you like your password to be?\nThere is an 8 character minimum and a 128 character maximum.'
+			)
 		);
 		// validate the user provided specifications
 		// require them to re-enter a correct value
-		while (this.length <= 8 && this.length >= 128) {
+		while (!(this.length >= 8 && this.length <= 128)) {
 			this.length = prompt(
 				'Your password must be between 8 and 128 characters in length. Please enter a valid response.'
 			);
 		}
 		// check if lowercase letters should be included
 		// if true, add those characters to the library
-		this.lowercase = prompt(
+		this.lowercase = confirm(
 			'Please confirm that the password should include lowercase letters.\nIf you do not wish to include these characters, press Cancel.'
 		);
 		if (this.lowercase) {
-			fullCharacterArray.concat(lowercaseAlphabet);
+			this.characters = this.characters.concat(lowercaseAlphabet);
 		}
+		console.log(this.characters);
 		// check if uppercase letters should be included
 		// if true, add those characters to the library
-		this.uppercase = prompt(
+		this.uppercase = confirm(
 			'Please confirm that the password should include uppercase letters.\nIf you do not wish to include these characters, press Cancel.'
 		);
 		if (this.uppercase) {
-			fullCharacterArray.concat(uppercaseAlphabet);
+			this.characters = this.characters.concat(uppercaseAlphabet);
 		}
+		console.log(this.characters);
 		// check if numeric characters should be included
 		// if true, add those characters to the library
-		this.numeric = prompt(
+		this.numeric = confirm(
 			'Please confirm that the password should include numeric characters.\nIf you do not wish to include these characters, press Cancel.'
 		);
 		if (this.numeric) {
-			fullCharacterArray.concat(numericCharacters);
+			this.characters = this.characters.concat(numericCharacters);
 		}
+		console.log(this.characters);
 		// check if special characters should be included
 		// if true, add those characters to the library
-		this.special = prompt(
+		this.special = confirm(
 			'Please confirm that the password should include special characters.\nIf you do not wish to include these characters, press Cancel.'
 		);
 		if (this.special) {
-			fullCharacterArray.concat(specialCharacters);
+			this.characters = this.characters.concat(specialCharacters);
 		}
+		console.log(this.characters);
 	},
 };
 
 function generatePassword() {
-	criteria.collectUserInput;
-	if (fullCharacterArray.length < 1) {
+	criteria.collectUserInput();
+	if (criteria.characters.length < 1) {
 		alert(
 			'You must include at least one set of characters in order to generate a password.'
 		);
