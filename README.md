@@ -10,7 +10,7 @@ For this week's challenge, I'd like to explore some basic Javascript. In the pro
 
 A project like this should give me a chance to play with some basic JS methods. I'm also interested in exploring the Object data type.
 
-Away we go!
+[The deployed application is here.](https://austinzumbro.github.io/password-generator/)
 
 ---
 
