@@ -35,7 +35,7 @@ for (let i = 0; i < specialCharacterString.length; i++) {
 // Default criteria options.
 var criteria = {
 	characters: [],
-	length: 8,
+	numChars: 8,
 	lowercase: true,
 	uppercase: true,
 	numeric: true,
@@ -53,18 +53,29 @@ var criteria = {
 		console.log(this.characters);
 
 		// collect the number of characters specification from the user
-		this.length = parseInt(
+		this.numChars = parseInt(
 			prompt(
 				'What length, in characters, would you like your password to be?\nThere is an 8 character minimum and a 128 character maximum.'
 			)
 		);
+		// if user hits "cancel" then stop collecting input
+		if (!this.numChars) {
+			return;
+		}
+
 		// validate the user provided specifications
 		// require them to re-enter a correct value
-		while (!(this.length >= 8 && this.length <= 128)) {
-			this.length = prompt(
+		while (!(this.numChars >= 8 && this.numChars <= 128)) {
+			this.numChars = prompt(
 				'Your password must be between 8 and 128 characters in length. Please enter a valid response.'
 			);
+			if (!this.length) break;
 		}
+		// if the user hits "cancel" then stop collecting input
+		if (!this.numChars) {
+			return;
+		}
+
 		// check if lowercase letters should be included
 		// if true, add those characters to the library
 		this.lowercase = confirm(
@@ -74,6 +85,7 @@ var criteria = {
 			this.characters = this.characters.concat(lowercaseAlphabet);
 		}
 		console.log(this.characters);
+
 		// check if uppercase letters should be included
 		// if true, add those characters to the library
 		this.uppercase = confirm(
@@ -83,6 +95,7 @@ var criteria = {
 			this.characters = this.characters.concat(uppercaseAlphabet);
 		}
 		console.log(this.characters);
+
 		// check if numeric characters should be included
 		// if true, add those characters to the library
 		this.numeric = confirm(
@@ -92,6 +105,7 @@ var criteria = {
 			this.characters = this.characters.concat(numericCharacters);
 		}
 		console.log(this.characters);
+
 		// check if special characters should be included
 		// if true, add those characters to the library
 		this.special = confirm(
@@ -105,12 +119,35 @@ var criteria = {
 };
 
 function generatePassword() {
+	// initialize a string
+	let passwordString = '';
+
+	// collect the user input regarding length, character library, etc.
 	criteria.collectUserInput();
+
+	// if user hits "cancel," abort the process and return nothing
+	if (!criteria.numChars) {
+		return null;
+	}
+
+	// if the user does not approve any character libraries, alert them to try again and return nothing
 	if (criteria.characters.length < 1) {
 		alert(
-			'You must include at least one set of characters in order to generate a password.'
+			'You must include at least one set of characters in order to generate a password.\nPlease try again and confirm at least one set of character types.'
 		);
-		return;
+		return null;
+	}
+
+	console.log(passwordString);
+	console.log(Math.floor(Math.random() * criteria.characters.length));
+
+	for (let i = 0; i < criteria.numChars.length; i++) {
+		let position = Math.floor(Math.random() * criteria.characters.length);
+		console.log(position);
+		let randomChar = criteria.characters[position];
+		console.log(randomChar);
+		passwordString += randomChar;
+		console.log(passwordString);
 	}
 }
 
@@ -118,6 +155,7 @@ function generatePassword() {
 function writePassword() {
 	var password = generatePassword();
 	var passwordText = document.querySelector('#password');
+	console.log(password);
 
 	passwordText.value = password;
 }
