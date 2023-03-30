@@ -120,7 +120,7 @@ var criteria = {
 
 function generatePassword() {
 	// initialize a string
-	let passwordString = '';
+	var passwordString = '';
 
 	// collect the user input regarding length, character library, etc.
 	criteria.collectUserInput();
@@ -138,17 +138,19 @@ function generatePassword() {
 		return null;
 	}
 
-	console.log(passwordString);
-	console.log(Math.floor(Math.random() * criteria.characters.length));
-
-	for (let i = 0; i < criteria.numChars.length; i++) {
-		let position = Math.floor(Math.random() * criteria.characters.length);
-		console.log(position);
-		let randomChar = criteria.characters[position];
-		console.log(randomChar);
-		passwordString += randomChar;
-		console.log(passwordString);
+	if (criteria.characters.length > 0) {
+		console.log('if statement works');
 	}
+
+	for (let i = 0; i < criteria.numChars; i++) {
+		console.log('For Loop is working.');
+		passwordString +=
+			criteria.characters[
+				Math.floor(Math.random() * criteria.characters.length)
+			];
+	}
+
+	return passwordString;
 }
 
 // Write password to the #password input
